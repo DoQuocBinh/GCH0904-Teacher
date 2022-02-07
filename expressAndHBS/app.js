@@ -11,7 +11,11 @@ app.set('view engine','hbs')
 app.get('/',(req,res)=>{
     //#4:
     const content = fs.readFileSync('mydata.txt','utf-8')
-    res.render('home',{data:content})
+    //tach noi dung file thanh tung hang(line), va cho tat ca vao mang
+    const myarray = content.split("\n") // \n: ky tu xuong dong
+    const name = myarray[0] //hang dau tien
+    const lop = myarray[1]  //hang thu 2
+    res.render('home',{name:name,lop:lop})
 })
 
 app.get('/s',(req,res)=>{
