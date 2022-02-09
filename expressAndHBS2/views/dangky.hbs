@@ -9,9 +9,11 @@
 <body>
     <h1>Enter your information</h1>
     <form action="/register" method="post">
-        Name <input type="text" name="txtName">
+        Name <input type="text" name="txtName" value="{{user.name}}">
+        <span style="color: red;">{{errorName}}</span>  
         <br>
-        Your Class <input type="text" name="txtClass">
+        Your Class <input type="text" name="txtClass" value="{{user.clazz}}">
+         <span style="color: red;">{{errorClazz}}</span>  
         <br>
         <input type="submit" value="Register">
     </form>

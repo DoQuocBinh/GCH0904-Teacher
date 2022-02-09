@@ -16,6 +16,19 @@ app.post('/register',(req,res)=>{
         name : name,
         clazz: clazz
     }
+
+    //kiem tra(input validation)
+    if(name== null || name.length==0){
+        const errorMsg = "Name is required!"
+        res.render('dangky',{errorName:errorMsg})
+        return
+    }
+    if(!clazz.startsWith('C')){
+        const errorMsg = "ClassName must start with C!"
+        res.render('dangky',{errorClazz:errorMsg,user:user})
+        return
+    }
+    
     fs.appendFileSync('mydata.txt',JSON.stringify(user))
     //tao variable user trong template done
     res.render("done",{user:user})
