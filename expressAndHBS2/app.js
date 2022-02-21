@@ -22,7 +22,6 @@ app.post('/register', async (req,res)=>{
         clazz: clazz,
         phone: phone
     }
-
     //kiem tra(input validation)
     if(name== null || name.length==0){
         const errorMsg = "Name is required!"
@@ -33,8 +32,7 @@ app.post('/register', async (req,res)=>{
         const errorMsg = "ClassName must start with C!"
         res.render('dangky',{errorClazz:errorMsg,user:user})
         return
-    }
-    
+    }   
     //fs.appendFileSync('mydata.txt',JSON.stringify(user))
     let client= await MongoClient.connect(url);
     let dbo = client.db("NoSQLBoosterSamples");//NoSQLBoosterSamples: ten database
