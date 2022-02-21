@@ -1,5 +1,6 @@
 const express = require('express')
-const { insertObject } = require('./databaseHandler')
+const async = require('hbs/lib/async')
+const { insertObject, getAllFromCollection } = require('./databaseHandler')
 const app = express()
 
 
@@ -8,6 +9,12 @@ app.use(express.urlencoded({extended:true}))
 
 app.get('/',(req,res)=>{
     res.render('index')
+})
+
+app.get('/all', async (req,res)=>{
+    const collectionName = 'SanPham'
+    const result = await getAllFromCollection(collectionName)
+    res.render('all',{products:result})
 })
 
 
@@ -20,9 +27,8 @@ app.post('/insert',async (req,res)=>{
         'price': price,
         'pic' : picURL
     }
-    const databaseName = 'GCH0904_DB'
     const collectionName = 'SanPham'
-    await insertObject(databaseName,collectionName,newP)
+    await insertObject(collectionName,newP)
     res.render('index')
 })
 
