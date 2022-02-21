@@ -1,6 +1,7 @@
 const express = require('express')
 const async = require('hbs/lib/async')
-const { insertObject, getAllFromCollection } = require('./databaseHandler')
+const { ObjectId } = require('mongodb')
+const { insertObject, getAllFromCollection, getDocumentById, updateCollection, deleteDocumentById } = require('./databaseHandler')
 const app = express()
 
 
@@ -11,10 +12,37 @@ app.get('/',(req,res)=>{
     res.render('index')
 })
 
+app.post('/edit', async (req,res)=>{
+    const updateId = req.body.txtId
+    const name = req.body.txtName
+    const price = req.body.txtPrice
+    const picURL = req.body.txtPictureURL
+
+    const newvalues = { $set: {'name': name, 'price': price,'pic':picURL } }
+    const myQuery = {_id: ObjectId(updateId)}
+    const collectionName = 'SanPham'
+    await updateCollection(collectionName,myQuery,newvalues)
+    res.redirect('/all')
+})
+app.get('/delete',async (req,res) =>{
+    const id = req.query.id
+    const collectionName = 'SanPham'
+    await deleteDocumentById(collectionName,id)
+    res.redirect('/all')
+})
+
 app.get('/all', async (req,res)=>{
     const collectionName = 'SanPham'
     const result = await getAllFromCollection(collectionName)
     res.render('all',{products:result})
+})
+
+app.get('/edit',async (req,res)=>{
+    const id = req.query.id
+    const collectionName = 'SanPham'
+    const document = await getDocumentById(collectionName,id)
+    console.log(document)
+    res.render('edit',{product:document})
 })
 
 
