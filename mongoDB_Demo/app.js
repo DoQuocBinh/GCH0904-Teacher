@@ -44,9 +44,13 @@ app.post('/createComment', async (req,res)=>{
 app.get('/createComment',async (req,res)=>{
     //lay thong tin san pham can tao comment
     const id = req.query.id
-    const collectionName = 'SanPham'
-    const document = await getDocumentById(collectionName,id)
-    res.render('comment',{product:document})
+    
+    const collectionName = 'comments'
+    const allComment = await findCommentById(id)
+
+    const sanPhamCollection = 'SanPham'
+    const document = await getDocumentById(sanPhamCollection,id)
+    res.render('comment',{product:document,comments:allComment})
 })
 
 app.get('/delete',async (req,res) =>{
