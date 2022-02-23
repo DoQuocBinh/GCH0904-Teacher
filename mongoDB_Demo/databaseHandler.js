@@ -30,10 +30,17 @@ async function insertObject(collectionName, newP) {
     await dbo.collection(collectionName).insertOne(newP)
 }
 
+async function findCommentById(id){
+    const  collectionName = 'comments'
+    let client = await MongoClient.connect(url)
+    let dbo = client.db(databaseName) //GCH0904_DB: ten database
+    return  await dbo.collection(collectionName).find({productId:id}).toArray()
+}
+
 async function getAllFromCollection(collectionName){
     let client = await MongoClient.connect(url)
     let dbo = client.db(databaseName) //GCH0904_DB: ten database
     return await dbo.collection(collectionName).find({}).toArray()
 }
 
-module.exports = {insertObject,getAllFromCollection,getDocumentById,updateCollection,deleteDocumentById}
+module.exports = {findCommentById,insertObject,getAllFromCollection,getDocumentById,updateCollection,deleteDocumentById}

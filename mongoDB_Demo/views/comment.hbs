@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Create comments for product</title>
+</head>
+<body>
+    <h1>Create comment</h1>
+    <form action="/createComment" method="post">
+        <input type="hidden" name="txtId" value="{{product._id}}">
+        Name: <label>{{product.name}}</label> 
+        <br>
+        Price: <label>{{product.price}}</label>
+        <br>
+        PictureURL <input type="text" name="txtPictureURL" value="{{product.pic}}">
+        <hr>
+        Comment: <input type="text" name="txtComment">
+        <input type="submit" value="Create">
+        <hr>
+        {{#each comments}}
+            {{comment}}
+            <br>
+        {{/each}}
+    </form>
+</body>
+</html>

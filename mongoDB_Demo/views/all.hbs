@@ -19,7 +19,7 @@
         <tr>
             <td><a href="/edit?id={{_id}}">{{name}}</a></td>
             <td>{{price}}</td>
-            <td><img src="{{pic}}" width='150' height='100'/></td>
+            <td><a href="/createComment?id={{_id}}"><img src="{{pic}}" width='150' height='100'/></a></td>
             <td><a href="/delete?id={{_id}}" onclick="return confirm('Are you sure?')">Delete</a></td>
         </tr>
         {{/each}}
